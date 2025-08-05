@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cloudinary.Cloudinary;
@@ -30,37 +31,52 @@ import com.mahendar.onlineShopping.repo.ProductRepository;
 @RequestMapping("/api/products")
 public class ProductController {
 
+    private final CorsFilter corsFilter;
+
     @Autowired
     private Cloudinary cloudinary;
 
     @Autowired
     private ProductRepository productRepository;
 
+    ProductController(CorsFilter corsFilter) {
+        this.corsFilter = corsFilter;
+    }
+
     @PostMapping("/add")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('SUPPLIER')")
     public ResponseEntity<?> addProduct(
             @RequestParam("name") String name,
             @RequestParam("price") double price,
+            @RequestParam("mrp") double mrp,
             @RequestParam("stock") int stock,
             @RequestParam("suplierId") Long suplierId,
             @RequestParam("description") String description,
-            @RequestParam("main") MultipartFile main,
-            @RequestParam("pallu") MultipartFile pallu,
-            @RequestParam("showcase") MultipartFile showcase,
-            @RequestParam("blouse") MultipartFile blouse,
-            @RequestParam("border") MultipartFile border) throws IOException {
-
+            @RequestParam(value = "main", required = false) MultipartFile main,
+            @RequestParam(value = "pallu", required = false) MultipartFile pallu,
+            @RequestParam(value = "showcase", required = false) MultipartFile showcase,
+            @RequestParam(value = "blouse", required = false) MultipartFile blouse,
+            @RequestParam(value = "border", required = false) MultipartFile border
+            ) throws IOException {
+//    	System.out.println("all images"+mainUrl+palluUrl+blouseUrl+borderUrl+showcaseUrl);
+    	
+    	System.out.println(main);
         // Upload all images separately to Cloudinary
         String mainUrl = uploadToCloudinary(main);
         String palluUrl = uploadToCloudinary(pallu);
         String blouseUrl = uploadToCloudinary(blouse);
         String borderUrl = uploadToCloudinary(border);
         String showcaseUrl = uploadToCloudinary(showcase);
-
+        
+        System.out.println("all images"+mainUrl+palluUrl+blouseUrl+borderUrl+showcaseUrl);
         // Save product (include all URLs in entity)
         Product p = new Product();
         p.setName(name);
         p.setPrice(price);
+        p.setMrp(mrp);
+        p.setDiscount((int)((1 - (price / mrp)) * 100));
+
+        
         p.setStock(stock);
         p.setDescription(description);
         p.setMain(mainUrl);
@@ -88,6 +104,8 @@ public class ProductController {
     public ResponseEntity<?> updateProduct(@PathVariable Long id,
             @RequestParam("name") String name,
             @RequestParam("price") double price,
+            @RequestParam("mrp") double mrp,
+            
             @RequestParam("stock") int stock,
             @RequestParam("suplierId") Long suplierId,
             @RequestParam("description") String description,
@@ -105,6 +123,8 @@ public class ProductController {
        if(p.getSuplierId()==suplierId) {
         p.setName(name);
         p.setPrice(price);
+        p.setMrp(mrp);
+        p.setDiscount((int)(price/mrp*100));
         p.setStock(stock);
         p.setDescription(description);
     	

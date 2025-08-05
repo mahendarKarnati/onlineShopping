@@ -169,7 +169,7 @@ return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials"
         	
         }
         System.out.println("mobile: "+user.getMobile());
-        userRepo.save(user);
+//        userRepo.save(user);
         return ResponseEntity.ok("Registered");
     }
     
@@ -185,51 +185,6 @@ return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials"
         return ResponseEntity.ok("Logged out successfully");
     }
     
-    
-    
-//    @GetMapping("/pendingRequests")
-//    public List<User> getSupplierRoleRequest(){
-//    	return userRepo.findByRole("ROLE_PENDING_SUPPLIER");
-//    }
-//    @PutMapping("/accept/{id}")
-//    public ResponseEntity<String> accept(@PathVariable Long id){
-//    	User u=userRepo.findById(id).orElseThrow();
-//    	u.setRole("ROLE_SUPPLIER");
-//		return ResponseEntity.ok("request accepted successfully");
-//    	
-//    }
-//    @DeleteMapping("/reject/{id}")
-//    public ResponseEntity<String> deleteRequest(@PathVariable Long id){
-//    	userRepo.deleteById(id);
-//		return ResponseEntity.ok("request accepted successfully");
-//    	
-//    }
-//    @PostMapping("/forget")
-//    public ResponseEntity<String> forgettingpassword(@RequestParam String email,@RequestParam Long mobile){
-//    	Optional<User> u=userRepo.findByEmailAndMobile(email, mobile);
-//    	if(u.isPresent()) {
-//    		return ResponseEntity.ok("user founded");
-//    	}
-//    		else {
-//    			return ResponseEntity.badRequest().body("invalid user");
-//    		}
-//    }
-    
-
-
-        // 1. Forget password - verify user
-//        @PostMapping("/forget")
-//        public ResponseEntity<String> forgetPassword(@RequestParam String email,Long mobile) {
-////            String email = payload.get("email");
-////            String mobile = payload.get("mobile");
-//
-//            Optional<User> userOpt = userRepo.findByEmailAndMobile(email, mobile);
-//            if (userOpt.isPresent()) {
-//                return ResponseEntity.ok("User verified");
-//            } else {
-//                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid email or mobile");
-//            }
-//        }
     
     
     
@@ -250,9 +205,6 @@ return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials"
         // 2. Reset password
         @PostMapping("/reset")
         public ResponseEntity<String> resetPassword(@RequestBody User payload) {
-//            String email = payload.getEmail();
-//            Long newPassword = payload.getMobile();
-
             Optional<User> userOpt = userRepo.findByEmail(payload.getEmail());
             if (userOpt.isPresent()) {
             	System.out.println("password: "+payload.getPassword());
@@ -264,9 +216,5 @@ return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials"
             } else {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found");
             }
-        }
- 
-
-    
-    
+        }  
 }

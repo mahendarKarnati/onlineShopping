@@ -53,12 +53,6 @@ public class JwtUtil {
     public String extractName(String token) {
         return extractAllClaims(token).get("name", String.class);
     }
-
-//    public String generateToken(String username, long userId) {
-//        Map<String, Object> claims = new HashMap<>();
-//        claims.put("userId",userId);
-//        return createToken(claims, username);
-//    }
     
     public String generateToken(String username, Long userId, String role, String name) {
         Map<String, Object> claims = new HashMap<>();

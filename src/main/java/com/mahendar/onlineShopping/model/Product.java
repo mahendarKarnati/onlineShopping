@@ -21,8 +21,22 @@ public class Product {
     private String blouse;
     private String border;
     private Long suplierId;
-    
-    public Long getSuplierId() {
+    private double mrp;
+    private int discount;
+        
+    public double getMrp() {
+		return mrp;
+	}
+	public void setMrp(double mrp) {
+		this.mrp = mrp;
+	}
+	public int getDiscount() {
+		return discount;
+	}
+	public void setDiscount(int discount) {
+		this.discount = discount;
+	}
+	public Long getSuplierId() {
 		return suplierId;
 	}
 	public void setSuplierId(Long suplierId) {

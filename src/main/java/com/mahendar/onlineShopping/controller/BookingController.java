@@ -31,8 +31,6 @@ public class BookingController {
     @Autowired
     private BookingService bookingService;
     @Autowired
-    private UserRepository userRepo;
-    @Autowired
     private Email e;
     @Autowired
     private BookingRepository bookingRepo;
@@ -42,22 +40,6 @@ public class BookingController {
         return bookingService.createBooking(booking);
     }
     
-//    @GetMapping("/user")
-//    public ResponseEntity<?> getUserBookings(Authentication authentication) {
-//        if (authentication == null || !authentication.isAuthenticated()) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("You must be logged in");
-//        }
-//
-//        String username = authentication.getName();
-//        System.out.println("Booking requester name: " + username);
-//
-//        Optional<User> userOptional = userRepo.findByUsername(username);
-//        if (userOptional.isPresent()) {
-//            User user = userOptional.get();
-//            return ResponseEntity.ok("Successfully retrieved booking data for user: " + user.getUsername());
-//        } else {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
-//        }
     @GetMapping("/{id}")
     public List<Booking> getBookings(@PathVariable Long id){
     	System.out.println(bookingRepo.findByUserId(id));
@@ -70,47 +52,6 @@ public class BookingController {
 		return bookingRepo.findBySuplierId(id);
     	
     }
-//    @PutMapping("/supplier/updates/{id}")
-//    public ResponseEntity<?> updateBooking(@PathVariable Long id, @RequestBody Map<String, Object> updates) {
-//        Booking booking = bookingRepo.findById(id)
-//            .orElseThrow(() -> new RuntimeException("Booking not found"));
-//
-//        if (updates.containsKey("deliveredDate")) {
-//            booking.setDeliveredDate((String) updates.get("deliveredDate"));
-//        }
-//        if (updates.containsKey("bookingStatus")) {
-//            booking.setBookingStatus((String) updates.get("bookingStatus"));
-//        }
-//        if (updates.containsKey("status")) {
-//            booking.setStatus((String) updates.get("status"));
-//        }
-//
-//        bookingRepo.save(booking);
-//        return ResponseEntity.ok("Booking updated successfully");
-//    }
-
-
-    
-    
-    
-//    @PutMapping("/supplier/updates/{id}")
-//    public ResponseEntity<String> updateBooking(@PathVariable Long id, 
-//    		@RequestAttribute String deliveredDate,
-//    		@RequestAttribute String bookingStatus,
-//    		@RequestAttribute String status
-//    		
-//    		
-//    		) {
-//        Booking booking = bookingRepo.findById(id)
-//            .orElseThrow(() -> new RuntimeException("Booking not found"));
-//
-//        	booking.setDeliveredDate(deliveredDate);
-//        	booking.setBookingStatus(bookingStatus);
-//        	booking.setStatus(status);
-//        	bookingRepo.save(booking);
-//        return ResponseEntity.ok("Booking updated successfully");
-//    }
-
     
     @PutMapping("/supplier/updates/{id}")
     public ResponseEntity<String> updateBooking(

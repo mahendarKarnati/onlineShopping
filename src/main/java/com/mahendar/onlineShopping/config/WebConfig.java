@@ -33,13 +33,35 @@ import org.springframework.web.servlet.config.annotation.*;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-            .allowedOrigins("http://localhost:3000")
-            .allowedMethods("*")
-            .allowCredentials(true)
-            .allowedHeaders("*");
-    }
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/**")
+//            .allowedOrigins("http://localhost:3000")
+//            .allowedMethods("*")
+//            .allowCredentials(true)
+//            .allowedHeaders("*");
+//    }
+	
+	
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+	    registry.addMapping("/**")
+	        .allowedOriginPatterns(
+	            "http://localhost:3000",
+	            "http://192.168.129.133:3000",
+//	            "http://192.168.0.100:3000"  ,  // if needed
+//	            "http://your-phone-ip:3000",     // if accessing via phone browser
+	            "https://online-shopping-neon.vercel.app/" // if using Vercel
+	        )
+	        .allowedMethods("*")
+	        .allowedHeaders("*")
+	        .allowCredentials(true);
+	}
+
+	
+	
+	
+	
+	
 }
 
