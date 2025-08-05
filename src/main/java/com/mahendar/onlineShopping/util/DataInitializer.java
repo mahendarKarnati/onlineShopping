@@ -1,12 +1,12 @@
-package com.website.samcar.util;
+package com.mahendar.onlineShopping.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.website.samcar.model.User;
-import com.website.samcar.repository.UserRepository;
+import com.mahendar.onlineShopping.model.User;
+import com.mahendar.onlineShopping.UserRepository;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
