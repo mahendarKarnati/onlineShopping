@@ -62,12 +62,12 @@ public class ProductController {
     	System.out.println(main);
         // Upload all images separately to Cloudinary
         String mainUrl = uploadToCloudinary(main);
-        String palluUrl = uploadToCloudinary(pallu);
+       /* String palluUrl = uploadToCloudinary(pallu);
         String blouseUrl = uploadToCloudinary(blouse);
         String borderUrl = uploadToCloudinary(border);
-        String showcaseUrl = uploadToCloudinary(showcase);
+        String showcaseUrl = uploadToCloudinary(showcase);   */
         
-        System.out.println("all images"+mainUrl+palluUrl+blouseUrl+borderUrl+showcaseUrl);
+        
         // Save product (include all URLs in entity)
         Product p = new Product();
         p.setName(name);
@@ -79,10 +79,10 @@ public class ProductController {
         p.setStock(stock);
         p.setDescription(description);
         p.setMain(mainUrl);
-        p.setPallu(palluUrl);
+       /* p.setPallu(palluUrl);
         p.setBlouse(blouseUrl);
         p.setBorder(borderUrl);
-        p.setShowcase(showcaseUrl);
+        p.setShowcase(showcaseUrl); */
         p.setSuplierId(suplierId);
         System.out.println("id:  "+suplierId+"  "+p.getSuplierId());
         productRepository.save(p);
