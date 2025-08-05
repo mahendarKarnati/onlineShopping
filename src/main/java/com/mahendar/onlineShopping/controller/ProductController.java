@@ -83,7 +83,7 @@ public class ProductController {
         p.setBlouse(blouseUrl);
         p.setBorder(borderUrl);
         p.setShowcase(showcaseUrl);
-//        p.setSuplierId(suplierId);
+        p.setSuplierId(suplierId);
         System.out.println("id:  "+suplierId+"  "+p.getSuplierId());
         productRepository.save(p);
         return ResponseEntity.ok("Product saved!");
