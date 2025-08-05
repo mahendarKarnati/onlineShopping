@@ -6,7 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.mahendar.onlineShopping.model.User;
-import com.mahendar.onlineShopping.UserRepository;
+import com.mahendar.onlineShopping.repo.UserRepository;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
