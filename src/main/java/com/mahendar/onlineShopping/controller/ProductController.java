@@ -27,7 +27,6 @@ import com.mahendar.onlineShopping.model.Product;
 import com.mahendar.onlineShopping.repo.ProductRepository;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @RequestMapping("/api/products")
 public class ProductController {
 
