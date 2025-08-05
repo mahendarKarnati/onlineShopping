@@ -247,7 +247,7 @@ public class SecurityConfig {
         // config.addAllowedOrigin("http://localhost:3000");
         // config.addAllowedOriginPattern("*");
 
-       config.addAllowedOrigin("https://onlineshopping-omega.vercel.app/");
+       config.addAllowedOrigin("https://onlineshopping-omega.vercel.app");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         config.addExposedHeader("Authorization");
