@@ -244,7 +244,9 @@ public class SecurityConfig {
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:3000");
+        // config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedOriginPattern("*");
+
 //        config.addAllowedOrigin("http://192.168.129.133:3000");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
