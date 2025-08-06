@@ -36,7 +36,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class AuthController {
 
     @Autowired
@@ -169,7 +168,11 @@ return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials"
         	
         }
         System.out.println("mobile: "+user.getMobile());
+<<<<<<< HEAD
         userRepo.save(user);
+=======
+       userRepo.save(user);
+>>>>>>> fe9c5a331f9181e10f1cf76b1c03d8450265234e
         return ResponseEntity.ok("Registered");
     }
     

@@ -25,7 +25,6 @@ import com.mahendar.onlineShopping.service.Email;
 
 @RestController
 @RequestMapping("/api/bookings")
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class BookingController {
 
     @Autowired

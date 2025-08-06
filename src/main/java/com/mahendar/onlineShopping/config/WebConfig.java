@@ -47,11 +47,15 @@ public class WebConfig implements WebMvcConfigurer {
 	public void addCorsMappings(CorsRegistry registry) {
 	    registry.addMapping("/**")
 	        .allowedOriginPatterns(
+<<<<<<< HEAD
 	            // "http://localhost:3000",
 	            // "http://192.168.129.133:3000",
 //	            "http://192.168.0.100:3000"  ,  // if needed
 //	            "http://your-phone-ip:3000",     // if accessing via phone browser
 	            "https://online-shopping-neon.vercel.app" // if using Vercel
+=======
+	        "https://onlineshopping-omega.vercel.app" // if using Vercel
+>>>>>>> fe9c5a331f9181e10f1cf76b1c03d8450265234e
 	        )
 	        .allowedMethods("*")
 	        .allowedHeaders("*")

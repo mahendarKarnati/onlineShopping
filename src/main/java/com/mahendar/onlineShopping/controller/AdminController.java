@@ -19,7 +19,6 @@ import com.mahendar.onlineShopping.service.Email;
 
 @RestController
 @RequestMapping("/admin")
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
 	@Autowired
