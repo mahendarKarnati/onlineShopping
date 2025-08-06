@@ -1,6 +1,7 @@
 package com.mahendar.onlineShopping.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -17,12 +18,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.mahendar.onlineShopping.model.Booking;
 import com.mahendar.onlineShopping.model.Product;
 import com.mahendar.onlineShopping.repo.ProductRepository;
 
