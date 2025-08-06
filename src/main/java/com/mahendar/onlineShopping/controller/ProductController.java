@@ -45,20 +45,36 @@ public class ProductController {
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('SUPPLIER')")
-    public ResponseEntity<?> addProduct(
-            @RequestParam("name") String name,
-            @RequestParam("price") double price,
-            @RequestParam("mrp") double mrp,
-            @RequestParam("stock") int stock,
-            @RequestParam("suplierId") Long suplierId,
-            @RequestParam("description") String description,
-            @RequestParam(value = "main", required = false) MultipartFile main
-            ,
-            @RequestParam(value = "pallu", required = false) MultipartFile pallu,
-            @RequestParam(value = "showcase", required = false) MultipartFile showcase,
-            @RequestParam(value = "blouse", required = false) MultipartFile blouse,
-            @RequestParam(value = "border", required = false) MultipartFile border
-            ) throws IOException {
+    // public ResponseEntity<?> addProduct(
+    //         @RequestParam("name") String name,
+    //         @RequestParam("price") double price,
+    //         @RequestParam("mrp") double mrp,
+    //         @RequestParam("stock") int stock,
+    //         @RequestParam("suplierId") Long suplierId,
+    //         @RequestParam("description") String description,
+    //         @RequestParam(value = "main", required = false) MultipartFile main
+    //         ,
+    //         @RequestParam(value = "pallu", required = false) MultipartFile pallu,
+    //         @RequestParam(value = "showcase", required = false) MultipartFile showcase,
+    //         @RequestParam(value = "blouse", required = false) MultipartFile blouse,
+    //         @RequestParam(value = "border", required = false) MultipartFile border
+    //         ) throws IOException {
+
+	public ResponseEntity<?> addProduct(
+        @RequestPart("name") String name,
+        @RequestPart("price") double price,
+        @RequestPart("mrp") double mrp,
+        @RequestPart("stock") int stock,
+        @RequestPart("suplierId") Long suplierId,
+        @RequestPart("description") String description,
+        @RequestPart(value = "main", required = false) MultipartFile main,
+        @RequestPart(value = "pallu", required = false) MultipartFile pallu,
+        @RequestPart(value = "showcase", required = false) MultipartFile showcase,
+        @RequestPart(value = "blouse", required = false) MultipartFile blouse,
+        @RequestPart(value = "border", required = false) MultipartFile border
+) throws IOException {
+
+	
     	MultipartFile[] files = {main, pallu, showcase, blouse, border};
         long fileCount = Arrays.stream(files)
                 .filter(f -> f != null && !f.isEmpty())
