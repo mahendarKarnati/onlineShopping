@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.mahendar.onlineShopping.model.Booking;
-import org.springframework.web.filter.CorsFilter;
+// import org.springframework.web.filter.CorsFilter;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
@@ -31,7 +31,7 @@ import com.mahendar.onlineShopping.repo.ProductRepository;
 @RequestMapping("/api/products")
 public class ProductController {
 
-    private final CorsFilter corsFilter;
+    // private final CorsFilter corsFilter;
 
     @Autowired
     private Cloudinary cloudinary;
@@ -39,9 +39,9 @@ public class ProductController {
     @Autowired
     private ProductRepository productRepository;
 
-    ProductController(CorsFilter corsFilter) {
-        this.corsFilter = corsFilter;
-    }
+    // ProductController(CorsFilter corsFilter) {
+    //     this.corsFilter = corsFilter;
+    // }
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('SUPPLIER')")
@@ -69,10 +69,10 @@ public class ProductController {
     	System.out.println(main);
         // Upload all images separately to Cloudinary
         String mainUrl = uploadToCloudinary(main);
-       /* String palluUrl = uploadToCloudinary(pallu);
+        String palluUrl = uploadToCloudinary(pallu);
         String blouseUrl = uploadToCloudinary(blouse);
         String borderUrl = uploadToCloudinary(border);
-        String showcaseUrl = uploadToCloudinary(showcase);   */
+        String showcaseUrl = uploadToCloudinary(showcase);   
         
         
         // Save product (include all URLs in entity)
@@ -86,10 +86,10 @@ public class ProductController {
         p.setStock(stock);
         p.setDescription(description);
         p.setMain(mainUrl);
-       /* p.setPallu(palluUrl);
+        p.setPallu(palluUrl);
         p.setBlouse(blouseUrl);
         p.setBorder(borderUrl);
-        p.setShowcase(showcaseUrl); */
+        p.setShowcase(showcaseUrl); 
         p.setSuplierId(suplierId);
         System.out.println("id:  "+suplierId+"  "+p.getSuplierId());
         productRepository.save(p);
@@ -98,7 +98,7 @@ public class ProductController {
 
     private String uploadToCloudinary(MultipartFile file) throws IOException {
         Map result = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap(
-            "folder", "ecommerce/products",
+            "folder", "ecommerce/productData",
             "quality", "100"
         ));
         return result.get("secure_url").toString();
