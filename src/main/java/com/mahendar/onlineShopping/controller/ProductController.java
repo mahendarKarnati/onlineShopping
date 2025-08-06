@@ -52,13 +52,13 @@ public class ProductController {
             @RequestParam("stock") int stock,
             @RequestParam("suplierId") Long suplierId,
             @RequestParam("description") String description,
-            @RequestParam(value = "main", required = false) MultipartFile main,
+            @RequestParam(value = "main", required = false) MultipartFile main
+            ,
             @RequestParam(value = "pallu", required = false) MultipartFile pallu,
             @RequestParam(value = "showcase", required = false) MultipartFile showcase,
             @RequestParam(value = "blouse", required = false) MultipartFile blouse,
             @RequestParam(value = "border", required = false) MultipartFile border
             ) throws IOException {
-//    	System.out.println("all images"+mainUrl+palluUrl+blouseUrl+borderUrl+showcaseUrl);
     	MultipartFile[] files = {main, pallu, showcase, blouse, border};
         long fileCount = Arrays.stream(files)
                 .filter(f -> f != null && !f.isEmpty())
@@ -66,15 +66,31 @@ public class ProductController {
         if (fileCount > 5) {
             return ResponseEntity.badRequest().body("Too many files uploaded. Maximum allowed is 5.");
         }
+//    	System.out.println("all images"+mainUrl+palluUrl+blouseUrl+borderUrl+showcaseUrl);
+    	System.out.println("main size: " + main.getSize());
+    	System.out.println("pallu size: " + pallu.getSize());
+    	System.out.println("blouse size: " + blouse.getSize());
+    	System.out.println("border size: " + border.getSize());
+    	System.out.println("showcase size: " + showcase.getSize());
+
+    	long totalSize = 0;
+    	if (main != null) totalSize += main.getSize();
+    	if (pallu != null) totalSize += pallu.getSize();
+    	if (blouse != null) totalSize += blouse.getSize();
+    	if (border != null) totalSize += border.getSize();
+    	if (showcase != null) totalSize += showcase.getSize();
+
+    	System.out.println("Total upload size (MB): " + (totalSize / (1024 * 1024)));
+
     	System.out.println(main);
         // Upload all images separately to Cloudinary
         String mainUrl = uploadToCloudinary(main);
         String palluUrl = uploadToCloudinary(pallu);
         String blouseUrl = uploadToCloudinary(blouse);
         String borderUrl = uploadToCloudinary(border);
-        String showcaseUrl = uploadToCloudinary(showcase);   
+        String showcaseUrl = uploadToCloudinary(showcase);
         
-        
+//        System.out.println("all images"+mainUrl+palluUrl+blouseUrl+borderUrl+showcaseUrl);
         // Save product (include all URLs in entity)
         Product p = new Product();
         p.setName(name);
@@ -89,7 +105,7 @@ public class ProductController {
         p.setPallu(palluUrl);
         p.setBlouse(blouseUrl);
         p.setBorder(borderUrl);
-        p.setShowcase(showcaseUrl); 
+        p.setShowcase(showcaseUrl);
         p.setSuplierId(suplierId);
         System.out.println("id:  "+suplierId+"  "+p.getSuplierId());
         productRepository.save(p);
