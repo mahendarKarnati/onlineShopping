@@ -1,6 +1,7 @@
 package com.mahendar.onlineShopping.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -17,12 +18,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.mahendar.onlineShopping.model.Booking;
 import com.mahendar.onlineShopping.model.Product;
 import com.mahendar.onlineShopping.repo.ProductRepository;
 
@@ -31,7 +30,7 @@ import com.mahendar.onlineShopping.repo.ProductRepository;
 @RequestMapping("/api/products")
 public class ProductController {
 
-    private final CorsFilter corsFilter;
+//    private final CorsFilter corsFilter;
 
     @Autowired
     private Cloudinary cloudinary;
@@ -39,9 +38,9 @@ public class ProductController {
     @Autowired
     private ProductRepository productRepository;
 
-    ProductController(CorsFilter corsFilter) {
-        this.corsFilter = corsFilter;
-    }
+//    ProductController(CorsFilter corsFilter) {
+//        this.corsFilter = corsFilter;
+//    }
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('SUPPLIER')")
@@ -52,14 +51,36 @@ public class ProductController {
             @RequestParam("stock") int stock,
             @RequestParam("suplierId") Long suplierId,
             @RequestParam("description") String description,
-            @RequestParam(value = "main", required = false) MultipartFile main,
+            @RequestParam(value = "main", required = false) MultipartFile main
+            ,
             @RequestParam(value = "pallu", required = false) MultipartFile pallu,
             @RequestParam(value = "showcase", required = false) MultipartFile showcase,
             @RequestParam(value = "blouse", required = false) MultipartFile blouse,
             @RequestParam(value = "border", required = false) MultipartFile border
             ) throws IOException {
+    	MultipartFile[] files = {main, pallu, showcase, blouse, border};
+        long fileCount = Arrays.stream(files)
+                .filter(f -> f != null && !f.isEmpty())
+                .count();
+        if (fileCount > 5) {
+            return ResponseEntity.badRequest().body("Too many files uploaded. Maximum allowed is 5.");
+        }
 //    	System.out.println("all images"+mainUrl+palluUrl+blouseUrl+borderUrl+showcaseUrl);
-    	
+    	System.out.println("main size: " + main.getSize());
+    	System.out.println("pallu size: " + pallu.getSize());
+    	System.out.println("blouse size: " + blouse.getSize());
+    	System.out.println("border size: " + border.getSize());
+    	System.out.println("showcase size: " + showcase.getSize());
+
+    	long totalSize = 0;
+    	if (main != null) totalSize += main.getSize();
+    	if (pallu != null) totalSize += pallu.getSize();
+    	if (blouse != null) totalSize += blouse.getSize();
+    	if (border != null) totalSize += border.getSize();
+    	if (showcase != null) totalSize += showcase.getSize();
+
+    	System.out.println("Total upload size (MB): " + (totalSize / (1024 * 1024)));
+
     	System.out.println(main);
         // Upload all images separately to Cloudinary
         String mainUrl = uploadToCloudinary(main);
@@ -68,7 +89,7 @@ public class ProductController {
         String borderUrl = uploadToCloudinary(border);
         String showcaseUrl = uploadToCloudinary(showcase);
         
-        System.out.println("all images"+mainUrl+palluUrl+blouseUrl+borderUrl+showcaseUrl);
+//        System.out.println("all images"+mainUrl+palluUrl+blouseUrl+borderUrl+showcaseUrl);
         // Save product (include all URLs in entity)
         Product p = new Product();
         p.setName(name);
@@ -84,15 +105,71 @@ public class ProductController {
         p.setBlouse(blouseUrl);
         p.setBorder(borderUrl);
         p.setShowcase(showcaseUrl);
-//        p.setSuplierId(suplierId);
+        p.setSuplierId(suplierId);
         System.out.println("id:  "+suplierId+"  "+p.getSuplierId());
         productRepository.save(p);
         return ResponseEntity.ok("Product saved!");
     }
 
+    
+//    @PostMapping("/add")
+//    @PreAuthorize("hasRole('SUPPLIER')")
+//    public ResponseEntity<?> addProduct(
+//            @RequestParam("name") String name,
+//            @RequestParam("price") double price,
+//            @RequestParam("mrp") double mrp,
+//            @RequestParam("stock") int stock,
+//            @RequestParam("suplierId") Long suplierId,
+//            @RequestParam("description") String description,
+//            @RequestParam(value = "main", required = false) MultipartFile main
+////            @RequestParam(value = "pallu", required = false) MultipartFile pallu,
+////            @RequestParam(value = "showcase", required = false) MultipartFile showcase,
+////            @RequestParam(value = "blouse", required = false) MultipartFile blouse,
+////            @RequestParam(value = "border", required = false) MultipartFile border
+//    ) throws IOException {
+//
+//        // Validate file count (max 5 files allowed)
+//        MultipartFile[] files = new MultipartFile[]{main};
+//        long fileCount = Arrays.stream(files)
+//                .filter(f -> f != null && !f.isEmpty())
+//                .count();
+//
+//        if (fileCount > 5) {
+//            return ResponseEntity.badRequest().body("You can only upload up to 5 images.");
+//        }
+//
+//        // Upload images to Cloudinary only if not null
+//        String mainUrl = (main != null && !main.isEmpty()) ? uploadToCloudinary(main) : null;
+////        String palluUrl = (pallu != null && !pallu.isEmpty()) ? uploadToCloudinary(pallu) : null;
+////        String blouseUrl = (blouse != null && !blouse.isEmpty()) ? uploadToCloudinary(blouse) : null;
+////        String borderUrl = (border != null && !border.isEmpty()) ? uploadToCloudinary(border) : null;
+////        String showcaseUrl = (showcase != null && !showcase.isEmpty()) ? uploadToCloudinary(showcase) : null;
+//
+//        // Create and save product
+//        Product p = new Product();
+//        p.setName(name);
+//        p.setPrice(price);
+//        p.setMrp(mrp);
+//        p.setDiscount((int) ((1 - (price / mrp)) * 100));
+//        p.setStock(stock);
+//        p.setDescription(description);
+//        p.setMain(mainUrl);
+////        p.setPallu(palluUrl);
+////        p.setBlouse(blouseUrl);
+////        p.setBorder(borderUrl);
+////        p.setShowcase(showcaseUrl);
+//        p.setSuplierId(suplierId); // ✅ Set supplier ID
+//
+//        productRepository.save(p);
+//
+//        return ResponseEntity.ok("✅ Product saved successfully!");
+//    }
+
+    
+    
     private String uploadToCloudinary(MultipartFile file) throws IOException {
         Map result = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap(
-            "folder", "ecommerce/products",
+            "folder", "ecommerce/productsData",
             "quality", "100"
         ));
         return result.get("secure_url").toString();

@@ -166,13 +166,6 @@
 //
 //
 
-
-
-
-
-
-
-
 package com.mahendar.onlineShopping.config;
 
 import org.springframework.context.annotation.Bean;
@@ -212,12 +205,12 @@ public class SecurityConfig {
 
         return http
                 .csrf(csrf -> csrf.disable())
-                .cors(cors -> {})
+                .cors(cors -> {
+                })
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/**").permitAll()
-                        .anyRequest().authenticated()
-                )
+                        .anyRequest().authenticated())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
@@ -239,13 +232,13 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
-    
+
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:3000");
-//        config.addAllowedOrigin("http://192.168.129.133:3000");
+        config.addAllowedOrigin("https://onlineshopping-omega.vercel.app");
+        // config.addAllowedOrigin("http://192.168.129.133:3000");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         config.addExposedHeader("Authorization");
@@ -255,14 +248,12 @@ public class SecurityConfig {
 
         return new CorsFilter(source);
     }
-    
-    
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.cors().and()
-//            .csrf().disable()
-//            .authorizeRequests()
-//            .anyRequest().permitAll();
-//    }
+
+    // protected void configure(HttpSecurity http) throws Exception {
+    // http.cors().and()
+    // .csrf().disable()
+    // .authorizeRequests()
+    // .anyRequest().permitAll();
+    // }
 
 }
-

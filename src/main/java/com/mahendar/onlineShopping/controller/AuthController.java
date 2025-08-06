@@ -169,7 +169,7 @@ return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials"
         	
         }
         System.out.println("mobile: "+user.getMobile());
-//        userRepo.save(user);
+        userRepo.save(user);
         return ResponseEntity.ok("Registered");
     }
     
