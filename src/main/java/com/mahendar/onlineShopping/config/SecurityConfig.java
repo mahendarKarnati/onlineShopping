@@ -209,14 +209,10 @@ public class SecurityConfig {
                 })
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-<<<<<<< HEAD
-                        .requestMatchers("/api/**").permitAll()
-                        .anyRequest().authenticated())
-=======
+
                         .requestMatchers("/api/**","/", "/login", "/register", "/css/**", "/js/**", "/images/**").permitAll()
                         .anyRequest().authenticated()
                 )
->>>>>>> fe9c5a331f9181e10f1cf76b1c03d8450265234e
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
@@ -243,15 +239,7 @@ public class SecurityConfig {
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-<<<<<<< HEAD
         config.addAllowedOrigin("https://onlineshopping-omega.vercel.app");
-        // config.addAllowedOrigin("http://192.168.129.133:3000");
-=======
-        // config.addAllowedOrigin("http://localhost:3000");
-        // config.addAllowedOriginPattern("*");
-
-       config.addAllowedOrigin("https://onlineshopping-omega.vercel.app");
->>>>>>> fe9c5a331f9181e10f1cf76b1c03d8450265234e
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         config.addExposedHeader("Authorization");

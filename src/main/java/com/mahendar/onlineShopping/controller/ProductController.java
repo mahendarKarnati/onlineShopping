@@ -32,22 +32,12 @@ import com.mahendar.onlineShopping.repo.ProductRepository;
 @RequestMapping("/api/products")
 public class ProductController {
 
-<<<<<<< HEAD
-//    private final CorsFilter corsFilter;
-=======
-    // private final CorsFilter corsFilter;
->>>>>>> fe9c5a331f9181e10f1cf76b1c03d8450265234e
-
     @Autowired
     private Cloudinary cloudinary;
 
     @Autowired
     private ProductRepository productRepository;
 
-<<<<<<< HEAD
-//    ProductController(CorsFilter corsFilter) {
-//        this.corsFilter = corsFilter;
-//    }
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('SUPPLIER')")
@@ -65,44 +55,10 @@ public class ProductController {
             @RequestParam(value = "blouse", required = false) MultipartFile blouse,
             @RequestParam(value = "border", required = false) MultipartFile border
             ) throws IOException {
-=======
-    // ProductController(CorsFilter corsFilter) {
-    //     this.corsFilter = corsFilter;
-    // }
 
-    @PostMapping("/add")
-    @PreAuthorize("hasRole('SUPPLIER')")
-    // public ResponseEntity<?> addProduct(
-    //         @RequestParam("name") String name,
-    //         @RequestParam("price") double price,
-    //         @RequestParam("mrp") double mrp,
-    //         @RequestParam("stock") int stock,
-    //         @RequestParam("suplierId") Long suplierId,
-    //         @RequestParam("description") String description,
-    //         @RequestParam(value = "main", required = false) MultipartFile main
-    //         ,
-    //         @RequestParam(value = "pallu", required = false) MultipartFile pallu,
-    //         @RequestParam(value = "showcase", required = false) MultipartFile showcase,
-    //         @RequestParam(value = "blouse", required = false) MultipartFile blouse,
-    //         @RequestParam(value = "border", required = false) MultipartFile border
-    //         ) throws IOException {
 
-	public ResponseEntity<?> addProduct(
-        @RequestPart("name") String name,
-        @RequestPart("price") double price,
-        @RequestPart("mrp") double mrp,
-        @RequestPart("stock") int stock,
-        @RequestPart("suplierId") Long suplierId,
-        @RequestPart("description") String description,
-        @RequestPart(value = "main", required = false) MultipartFile main,
-        @RequestPart(value = "pallu", required = false) MultipartFile pallu,
-        @RequestPart(value = "showcase", required = false) MultipartFile showcase,
-        @RequestPart(value = "blouse", required = false) MultipartFile blouse,
-        @RequestPart(value = "border", required = false) MultipartFile border
-) throws IOException {
 
 	
->>>>>>> fe9c5a331f9181e10f1cf76b1c03d8450265234e
     	MultipartFile[] files = {main, pallu, showcase, blouse, border};
         long fileCount = Arrays.stream(files)
                 .filter(f -> f != null && !f.isEmpty())
@@ -214,11 +170,7 @@ public class ProductController {
     
     private String uploadToCloudinary(MultipartFile file) throws IOException {
         Map result = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap(
-<<<<<<< HEAD
             "folder", "ecommerce/productsData",
-=======
-            "folder", "ecommerce/productData",
->>>>>>> fe9c5a331f9181e10f1cf76b1c03d8450265234e
             "quality", "100"
         ));
         return result.get("secure_url").toString();
