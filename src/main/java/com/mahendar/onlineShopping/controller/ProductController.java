@@ -58,7 +58,13 @@ public class ProductController {
             @RequestParam(value = "border", required = false) MultipartFile border
             ) throws IOException {
 //    	System.out.println("all images"+mainUrl+palluUrl+blouseUrl+borderUrl+showcaseUrl);
-    	
+    	MultipartFile[] files = {main, pallu, showcase, blouse, border};
+        long fileCount = Arrays.stream(files)
+                .filter(f -> f != null && !f.isEmpty())
+                .count();
+        if (fileCount > 5) {
+            return ResponseEntity.badRequest().body("Too many files uploaded. Maximum allowed is 5.");
+        }
     	System.out.println(main);
         // Upload all images separately to Cloudinary
         String mainUrl = uploadToCloudinary(main);
