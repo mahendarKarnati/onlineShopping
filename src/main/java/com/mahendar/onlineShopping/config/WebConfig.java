@@ -47,7 +47,8 @@ public class WebConfig implements WebMvcConfigurer {
 	public void addCorsMappings(CorsRegistry registry) {
 	    registry.addMapping("/**")
 	        .allowedOriginPatterns(
-	        "https://onlineshopping-omega.vercel.app" // if using Vercel
+	        "https://onlineshopping-omega.vercel.app",
+			"https://onlineshopping-mahendars-projects-537512d8.vercel.app"// if using Vercel
 	        )
 	        .allowedMethods("*")
 	        .allowedHeaders("*")

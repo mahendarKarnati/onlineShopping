@@ -31,6 +31,13 @@ public class Booking {
     private String status;
     private LocalDate bookingDate;
     private String deliveredDate;
+	private String landmark;
+	public String getLandmark() {
+		return landmark;
+	}
+	public void setLandmark(String landmark) {
+		this.landmark = landmark;
+	}
 	public Long getId() {
 		return id;
 	}
