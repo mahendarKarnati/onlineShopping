@@ -1,0 +1,38 @@
+.success::before{
+    content:'';
+    position: absolute;
+    font-size: 220px;
+    height: 100px;
+    width: 100px;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%);
+    background-color: rgb(9, 217, 9);
+    z-index: -1;
+    border-radius: 50%;
+}
+.success{
+    position: absolute;
+    background: transparent;
+    z-index: 2;
+    color: white;
+    font-weight: bold;
+    top: -14%;
+}
+#popup h3,#popup span{
+    text-align: center;
+}
+ #popup h3{
+    height: 100px;
+    font-size: 45px;
+}
+#popup span{
+    padding: 5px;
+    height: 100px;
+    color: rgb(9, 217, 9);
+    font-size: 20px;
+}
+#popup{
+    min-width: 300px;
+    max-height: 350px;
+}

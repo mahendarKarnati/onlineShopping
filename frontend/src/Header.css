@@ -1,0 +1,15 @@
+
+#navbar a, #navbar li{
+    color: white;
+    border-radius: 20px;
+    padding: 4px;
+}
+#navbar a:hover, #navbar li:hover{
+    color: rgb(255, 115, 115);
+    background-color: black;
+}
+#navbar {
+    background-color: rgba(0, 0, 0, 0.381);
+    /* backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px); */
+}

@@ -1,0 +1,29 @@
+.carousel img{
+    height: 500px;
+    width: 330px;
+}
+.images{
+    padding: 5;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+.images p{
+    width: 350px;
+}
+#carouselExampleIndicators{
+    width: 400px;
+}
+#carouselExampleIndicators img{
+    width: 400px;
+    height: 600px;
+
+}
+#box{
+    width: 400px;
+    height: 600px;
+
+    display: flex;
+    justify-content: center;
+}
